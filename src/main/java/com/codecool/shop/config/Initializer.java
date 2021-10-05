@@ -78,12 +78,10 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("HP Pavilion i5-1135G7",  new BigDecimal("704"), "USD","RAM size: 8 GB. Disk capacity: 512 GB. Processor cores: 4.", laptop, amazon));
 
         // Desktop computer
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//
-//
+        productDataStore.add(new Product("I7 16GB RTX 2060 SSD COMPUTER", new BigDecimal("1193"), "USD", "GAMING COMPUTER with Processor: Intel Core i7 2600 - 4x3.40GHz TURBO up to 4x3.80GHz.", desktopComputer, amazon));
+        productDataStore.add(new Product("DELL i5 8GB COMPUTER", new BigDecimal("155.8"), "USD", "Series / Model: Dell OptiPlex. Processor: Intel Core i5 - 2400, 6M Cache, 4 x 3.40 GHz (turbo), 4 x 3.10 GHz.", desktopComputer, dell));
+        productDataStore.add(new Product("Gaming computer - Intel i7 GTX 1050Ti", new BigDecimal("749.8"), "USD", "We present the results in games! We give the possibility to modify and extend the set. We guarantee the lowest price.", desktopComputer, lenovo));
+        productDataStore.add(new Product("DELL 7060 TINY I7 8GEN COMPUTER", new BigDecimal("578.6"), "USD", "Dell OptiPlex 7060 desktops are the most secure, manageable and reliable systems designed for uncompromising performance.", desktopComputer, dell));
+        productDataStore.add(new Product("Gaming computer - Intel i5 GTX 1050Ti", new BigDecimal("674.3"), "USD", "I5 2400 processor, 4 cores clocked at 3.4Ghz TURBO! NVIDIA GeForce GTX 1050Ti 4GB graphics card.", desktopComputer, lenovo));
     }
 }
