@@ -48,9 +48,7 @@ public class Initializer implements ServletContextListener {
         ProductCategory desktopComputer = new ProductCategory("Desktop computer", "Computer", "A personal computer (PC) designed for regular use at a single location on or near a desk due to its size and power requirements.");
         productCategoryDataStore.add(desktopComputer);
 
-
         //setting up products and printing it
-
         // Smartphone
         productDataStore.add(new Product("IPHONE XS MAX", new BigDecimal("606.7"), "USD", "Large 6.5-inch iPhone XS Max display with an OLED panel, A12 Bionic processor, 8-core Neural Engine system.", smartphone, apple));
         productDataStore.add(new Product("Black SONY Xperia 10 III", new BigDecimal("435.2"), "USD","OLED screen with a diagonal of 6 inches and FHD + resolution.", smartphone, sony));
@@ -65,13 +63,13 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Apple iPad 9-gen 10,2 64GB Wi-Fi Silver", new BigDecimal("440"), "USD", "Built-in memory of 64 GB. Warranty 12 months manufacturer's warranty. Screen diagonal 10.2", tablet, apple));
         productDataStore.add(new Product("Tablet LENOVO Tab M10 10.1 WiFi 32GB Black", new BigDecimal("138.2"), "USD", "Display: 10.1 \", 1280 x 800px, IPS. Built-in memory [GB]: 32. RAM memory size [GB]: 2.", tablet, lenovo));
 
+        // Smartwatch
+        productDataStore.add(new Product("Sony Smartwatch 3 SWR50", new BigDecimal("50.3"), "USD", "Solution for dynamically living users who want to have quick access to the functionality of their mobile phone.", smartwatch, sony));
+        productDataStore.add(new Product("Smartband M5", new BigDecimal("16.4"), "USD", "Help with losing unnecessary kilograms, careful monitoring of the heart and pulse.", smartwatch, amazon));
+        productDataStore.add(new Product("Apple Watch 5", new BigDecimal("400"), "USD", "A smartwatch that will allow 18 hours of use, you can successfully take to work and constantly analyze your activity while performing your daily duties.", smartwatch, apple));
+        productDataStore.add(new Product("HONOR MAGIC WATCH 2 GPS", new BigDecimal("160"), "USD", "Up to 14 days of battery life! 15 different sport modes. 316L stainless steel housing.", smartwatch, lenovo));
+        productDataStore.add(new Product("Huawei Honor band 6", new BigDecimal("57.8"), "USD", "Equipped with a heart rate monitor, blood oxygen sensor. Up to 14 days of normal use.", smartwatch, lenovo));
 
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//
 //        productDataStore.add(new Product());
 //        productDataStore.add(new Product());
 //        productDataStore.add(new Product());
