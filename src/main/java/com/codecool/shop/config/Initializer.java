@@ -70,12 +70,14 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("HONOR MAGIC WATCH 2 GPS", new BigDecimal("160"), "USD", "Up to 14 days of battery life! 15 different sport modes. 316L stainless steel housing.", smartwatch, lenovo));
         productDataStore.add(new Product("Huawei Honor band 6", new BigDecimal("57.8"), "USD", "Equipped with a heart rate monitor, blood oxygen sensor. Up to 14 days of normal use.", smartwatch, lenovo));
 
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//        productDataStore.add(new Product());
-//
+        // Laptop
+        productDataStore.add(new Product("Apple MacBook Air M1/8GB/256/Mac OS",  new BigDecimal("905.9"), "USD","Our thinnest and lightest notebook has been completely transformed by the Apple M1 chip. It even has a 3.5x faster CPU.", laptop, apple));
+        productDataStore.add(new Product("DELL E6520",  new BigDecimal("350.4"), "USD","Elegant appearance. Less worry and attractive details. Performance and durability wherever you go.", laptop, dell));
+        productDataStore.add(new Product("HP Pavilion 15 Ryzen 7",  new BigDecimal("842.9"), "USD","The Pavilion 15 laptop gives you more performance in a smaller device, so you can get more done wherever you go.", laptop, amazon));
+        productDataStore.add(new Product("Lenovo Chromebook S330",  new BigDecimal("125.6"), "USD","You will find space for programs, movies, photos, games and music files in mp3 format on a 64GB disk", laptop, lenovo));
+        productDataStore.add(new Product("HP Pavilion i5-1135G7",  new BigDecimal("704"), "USD","RAM size: 8 GB. Disk capacity: 512 GB. Processor cores: 4.", laptop, amazon));
+
+        // Desktop computer
 //        productDataStore.add(new Product());
 //        productDataStore.add(new Product());
 //        productDataStore.add(new Product());
