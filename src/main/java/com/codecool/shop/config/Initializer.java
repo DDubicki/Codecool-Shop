@@ -45,7 +45,7 @@ public class Initializer implements ServletContextListener {
         productCategoryDataStore.add(smartwatch);
         ProductCategory laptop = new ProductCategory("Laptop", "Computer", "A small, portable personal computer (PC) with a screen and alphanumeric keyboard.");
         productCategoryDataStore.add(laptop);
-        ProductCategory desktopComputer = new ProductCategory("Desktop computer", "Computer", "A personal computer (PC) designed for regular use at a single location on or near a desk due to its size and power requirements.");
+        ProductCategory desktopComputer = new ProductCategory("Desktop", "Computer", "A personal computer (PC) designed for regular use at a single location on or near a desk due to its size and power requirements.");
         productCategoryDataStore.add(desktopComputer);
 
         //setting up products and printing it

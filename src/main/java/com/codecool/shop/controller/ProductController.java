@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/smartphone", "/tablet", "/smartwatch", "/laptop", "/desktop_computer"})
+@WebServlet(urlPatterns = {"/smartphone", "/tablet", "/smartwatch", "/laptop", "/desktop"})
 public class ProductController extends HttpServlet {
 
     @Override
@@ -35,7 +35,7 @@ public class ProductController extends HttpServlet {
         // params.put("category", productCategoryDataStore.find(1));
         // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         // context.setVariables(params);
-        engine.process("product/index.html", context, resp.getWriter());
+        engine.process("product/category_products.html", context, resp.getWriter());
     }
 
     private int getCategoryId(HttpServletRequest req) {
@@ -48,7 +48,7 @@ public class ProductController extends HttpServlet {
                 break;
             case "/laptop": categoryId = 4;
                 break;
-            case "/desktop_computer": categoryId = 5;
+            case "/desktop": categoryId = 5;
                 break;
             default: categoryId = 1;
         }

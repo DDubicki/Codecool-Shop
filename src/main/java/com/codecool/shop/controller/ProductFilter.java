@@ -1,10 +1,11 @@
-package com.codecool.shop.service;
+package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -28,7 +29,8 @@ public class ProductFilter extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         context.setVariable("allProducts", productDataStore.getAll());
+        context.setVariable("categories", productCategoryDataStore.getAll());
 
-        engine.process("product/products_by_category.html", context, resp.getWriter());
+        engine.process("product/index.html", context, resp.getWriter());
     }
 }

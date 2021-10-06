@@ -9,12 +9,12 @@
 </div>
 
 <div class="container">
-    <div class="card">
-        <strong>Products list</strong>
-    </div>
+    <div class="productsTitle">
+        <strong th:text="${category.name}">Category Title</strong>
+    </div><br>
 
     <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${allProducts}">
+        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
                 <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="card-header">
@@ -35,7 +35,7 @@
 
 </div>
 
-
 <div th:replace="footer.html :: copy"></div>
+
 </body>
 </html>
