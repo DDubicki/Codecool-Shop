@@ -8,6 +8,16 @@
     <h1>Codecool Shop</h1>
 </div>
 
+<div class="d-flex justify-content-end">
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+            <button class="btn btn-outline-success" type="button">
+                <a href="/smartwatch">&#128722;</a>
+            </button>
+        </form>
+    </nav>
+</div>
+
 <div class="productsTitle">
     <strong>Products list</strong>
 </div>
@@ -23,7 +33,8 @@
         <br>
         <strong>Suppliers:</strong>
         <div th:each="supplier : ${suppliers}">
-            <a th:href="@{/{supplier_name}(supplier_name = ${supplier.name.toLowerCase()})}" th:text="${supplier.name}"></a>
+            <a th:href="@{/{supplier_name}(supplier_name = ${supplier.name.toLowerCase()})}"
+               th:text="${supplier.name}"></a>
         </div>
     </div>
     <div class="col">
