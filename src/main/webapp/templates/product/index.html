@@ -13,28 +13,37 @@
 </div>
 <br>
 
-<div class="container" th:each="cat : ${categories}">
-    <div class="category">
-        <a th:href="@{/{category_name}(category_name = ${cat.name.toLowerCase()})}" th:text="${cat.name}">Name</a>
+<div class="row">
+    <div class="col-sm-2">
+        <strong>Categories:</strong>
+        <div th:each="category : ${categories}">
+            <a th:href="@{/{category_name}(category_name = ${category.name.toLowerCase()})}"
+               th:text="${category.name}"></a>
+        </div>
+        <br>
+        <strong>Suppliers:</strong>
+        <div th:each="supplier : ${suppliers}">
+            <a th:href="@{/{supplier_name}(supplier_name = ${supplier.name.toLowerCase()})}" th:text="${supplier.name}"></a>
+        </div>
     </div>
-    <br>
-
-    <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod : ${allProducts}">
-            <div th:if="${cat.name.equals(prod.productCategory.name)}">
-                <div class="card">
-                    <img class="" src="http://placehold.it/400x250/000/fff"
-                         th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
-                    <div class="card-header">
-                        <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                        <p class="card-text" th:text="${prod.description}">Product description... </p>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-text">
-                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+    <div class="col">
+        <div class="container">
+            <div id="products" class="row">
+                <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod : ${allProducts}">
+                    <div class="card">
+                        <img class="" src="http://placehold.it/400x250/000/fff"
+                             th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
+                        <div class="card-header">
+                            <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                            <p class="card-text" th:text="${prod.description}">Product description... </p>
                         </div>
-                        <div class="card-text">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            </div>
+                            <div class="card-text">
+                                <a class="btn btn-success" href="#">Add to cart</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,7 +51,6 @@
         </div>
     </div>
 </div>
-
 <div th:replace="footer.html :: copy"></div>
 </body>
 </html>
