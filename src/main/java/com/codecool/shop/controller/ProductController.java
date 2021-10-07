@@ -35,7 +35,7 @@ public class ProductController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         String servletPath = req.getServletPath();
-
+//        System.out.println(req.getParameter("sort_by"));
         switch (servletPath) {
             case "/smartphone":
             case "/tablet":

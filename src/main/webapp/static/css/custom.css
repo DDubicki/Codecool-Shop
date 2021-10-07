@@ -81,3 +81,11 @@
 {
     background-color: blueviolet;
 }
+#filterButton
+{
+    text-align: left;
+}
+a:link
+{
+    text-decoration: none;
+}

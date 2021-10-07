@@ -27,14 +27,21 @@
     <div class="col-sm-2">
         <strong>Categories:</strong>
         <div th:each="category : ${categories}">
-            <a th:href="@{/{category_name}(category_name = ${category.name.toLowerCase()})}"
-               th:text="${category.name}"></a>
+            <a th:href="@{/{category_name}(category_name = ${category.name.toLowerCase()})}">
+                <button type="button" class="btn btn-light btn-block" id="filterButton"
+                        th:text="${category.name}">
+                </button>
+            </a>
         </div>
         <br>
         <strong>Suppliers:</strong>
         <div th:each="supplier : ${suppliers}">
-            <a th:href="@{/{supplier_name}(supplier_name = ${supplier.name.toLowerCase()})}"
-               th:text="${supplier.name}"></a>
+
+            <a th:href="@{/{supplier_name}(supplier_name = ${supplier.name.toLowerCase()})}">
+                <button type="button" class="btn btn-light btn-block" id="filterButton"
+                        th:text="${supplier.name}">>
+                </button>
+            </a>
         </div>
     </div>
     <div class="col">
