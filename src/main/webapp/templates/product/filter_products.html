@@ -10,7 +10,12 @@
 
 <div class="container">
     <div class="productsTitle">
-        <strong th:text="${supplier.name}">Supplier Title</strong>
+        <div th:if="${category != null}">
+            <strong th:text="${category.name}">Category Title</strong>
+        </div>
+        <div th:if="${supplier != null}">
+            <strong th:text="${supplier.name}">Supplier Title</strong>
+        </div>
     </div><br>
 
     <div id="products" class="row">

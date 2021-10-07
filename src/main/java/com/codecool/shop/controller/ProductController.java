@@ -75,7 +75,7 @@ public class ProductController extends HttpServlet {
         int categoryId = getCategorySupplierId(servletPath);
         context.setVariable("category", productService.getProductCategory(categoryId));
         context.setVariable("products", productService.getProductsForCategory(categoryId));
-        engine.process("product/category_products.html", context, resp.getWriter());
+        engine.process("product/filter_products.html", context, resp.getWriter());
     }
 
     private void engineSupplierProductsHTML(HttpServletResponse resp, ProductDao productDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String servletPath) throws IOException {
@@ -83,7 +83,7 @@ public class ProductController extends HttpServlet {
         Supplier supplier = supplierStore.find(supplierId);
         context.setVariable("supplier", supplier);
         context.setVariable("products", productDataStore.getBy(supplier));
-        engine.process("product/supplier_products.html", context, resp.getWriter());
+        engine.process("product/filter_products.html", context, resp.getWriter());
     }
 
     private int getCategorySupplierId(String servletPath) {
