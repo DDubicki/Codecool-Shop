@@ -19,9 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/",
-        "/smartphone", "/tablet", "/smartwatch", "/laptop", "/desktop",
-        "/apple", "/amazon", "/lenovo", "/sony", "/dell",})
+@WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
 
     @Override
@@ -33,27 +31,12 @@ public class ProductController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        String filter_by = req.getParameter("filter_by");
 
-        String servletPath = req.getServletPath();
-//        System.out.println(req.getParameter("sort_by"));
-        switch (servletPath) {
-            case "/smartphone":
-            case "/tablet":
-            case "/smartwatch":
-            case "/laptop":
-            case "/desktop":
-                engineCategoryProductsHTML(resp, productService, engine, context, servletPath);
-                break;
-            case "/apple":
-            case "/amazon":
-            case "/lenovo":
-            case "/sony":
-            case "/dell":
-                engineSupplierProductsHTML(resp, productDataStore, supplierStore, engine, context, servletPath);
-                break;
-            default:
-                engineIndexHTML(resp, productDataStore, productCategoryDataStore, supplierStore, engine, context);
+        if (filter_by != null) {
+            engineProductFilter(resp, productDataStore, productService, supplierStore, engine, context, filter_by);
         }
+        engineIndexHTML(resp, productDataStore, productCategoryDataStore, supplierStore, engine, context);
 
         /*
           Alternative setting of the template context
@@ -64,6 +47,25 @@ public class ProductController extends HttpServlet {
          */
     }
 
+    private void engineProductFilter(HttpServletResponse resp, ProductDao productDataStore, ProductService productService, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
+        switch (filter_by) {
+            case "smartphone":
+            case "tablet":
+            case "smartwatch":
+            case "laptop":
+            case "desktop":
+                filterByCategories(resp, productService, engine, context, filter_by);
+                break;
+            case "apple":
+            case "amazon":
+            case "lenovo":
+            case "sony":
+            case "dell":
+                filterBySuppliers(resp, productDataStore, supplierStore, engine, context, filter_by);
+                break;
+        }
+    }
+
     private void engineIndexHTML(HttpServletResponse resp, ProductDao productDataStore, ProductCategoryDao productCategoryDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context) throws IOException {
         context.setVariable("allProducts", productDataStore.getAll());
         context.setVariable("categories", productCategoryDataStore.getAll());
@@ -71,38 +73,38 @@ public class ProductController extends HttpServlet {
         engine.process("product/index.html", context, resp.getWriter());
     }
 
-    private void engineCategoryProductsHTML(HttpServletResponse resp, ProductService productService, TemplateEngine engine, WebContext context, String servletPath) throws IOException {
-        int categoryId = getCategorySupplierId(servletPath);
+    private void filterByCategories(HttpServletResponse resp, ProductService productService, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
+        int categoryId = getCategorySupplierId(filter_by);
         context.setVariable("category", productService.getProductCategory(categoryId));
         context.setVariable("products", productService.getProductsForCategory(categoryId));
         engine.process("product/filter_products.html", context, resp.getWriter());
     }
 
-    private void engineSupplierProductsHTML(HttpServletResponse resp, ProductDao productDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String servletPath) throws IOException {
-        int supplierId = getCategorySupplierId(servletPath);
+    private void filterBySuppliers(HttpServletResponse resp, ProductDao productDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
+        int supplierId = getCategorySupplierId(filter_by);
         Supplier supplier = supplierStore.find(supplierId);
         context.setVariable("supplier", supplier);
         context.setVariable("products", productDataStore.getBy(supplier));
         engine.process("product/filter_products.html", context, resp.getWriter());
     }
 
-    private int getCategorySupplierId(String servletPath) {
+    private int getCategorySupplierId(String filter_by) {
         int categoryId;
-        switch (servletPath) {
-            case "/tablet":
-            case "/amazon":
+        switch (filter_by) {
+            case "tablet":
+            case "amazon":
                 categoryId = 2;
                 break;
-            case "/smartwatch":
-            case "/lenovo":
+            case "smartwatch":
+            case "lenovo":
                 categoryId = 3;
                 break;
-            case "/laptop":
-            case "/sony":
+            case "laptop":
+            case "sony":
                 categoryId = 4;
                 break;
-            case "/desktop":
-            case "/dell":
+            case "desktop":
+            case "dell":
                 categoryId = 5;
                 break;
             default:

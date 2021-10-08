@@ -15,6 +15,9 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.math.BigDecimal;
 
+import static com.codecool.shop.config.Categories.*;
+import static com.codecool.shop.config.Suppliers.*;
+
 @WebListener
 public class Initializer implements ServletContextListener {
 
@@ -25,27 +28,27 @@ public class Initializer implements ServletContextListener {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         //setting up a new supplier
-        Supplier apple = new Supplier("Apple", "Consumer electronics and computer software");
+        Supplier apple = new Supplier(Apple.name(), "Consumer electronics and computer software");
         supplierDataStore.add(apple);
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
+        Supplier amazon = new Supplier(Amazon.name(), "Digital content and services");
         supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
+        Supplier lenovo = new Supplier(Lenovo.name(), "Computers");
         supplierDataStore.add(lenovo);
-        Supplier sony = new Supplier("SONY", "Electronic products");
+        Supplier sony = new Supplier(SONY.name(), "Electronic products");
         supplierDataStore.add(sony);
-        Supplier dell = new Supplier("DELL", "Computers");
+        Supplier dell = new Supplier(DELL.name(), "Computers");
         supplierDataStore.add(dell);
 
         //setting up a new product category
-        ProductCategory smartphone = new ProductCategory("Smartphone", "Phones and accessories", "A portable device that combines mobile telephone and computing functions into one unit.");
+        ProductCategory smartphone = new ProductCategory(Smartphone.name(), "Phones and accessories", "A portable device that combines mobile telephone and computing functions into one unit.");
         productCategoryDataStore.add(smartphone);
-        ProductCategory tablet = new ProductCategory("Tablet", "Phones and accessories", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        ProductCategory tablet = new ProductCategory(Tablet.name(), "Phones and accessories", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
-        ProductCategory smartwatch = new ProductCategory("Smartwatch", "Phones and accessories", "A wearable computer in the form of a watch.");
+        ProductCategory smartwatch = new ProductCategory(Smartwatch.name(), "Phones and accessories", "A wearable computer in the form of a watch.");
         productCategoryDataStore.add(smartwatch);
-        ProductCategory laptop = new ProductCategory("Laptop", "Computer", "A small, portable personal computer (PC) with a screen and alphanumeric keyboard.");
+        ProductCategory laptop = new ProductCategory(Laptop.name(), "Computer", "A small, portable personal computer (PC) with a screen and alphanumeric keyboard.");
         productCategoryDataStore.add(laptop);
-        ProductCategory desktopComputer = new ProductCategory("Desktop", "Computer", "A personal computer (PC) designed for regular use at a single location on or near a desk due to its size and power requirements.");
+        ProductCategory desktopComputer = new ProductCategory(Desktop.name(), "Computer", "A personal computer (PC) designed for regular use at a single location on or near a desk due to its size and power requirements.");
         productCategoryDataStore.add(desktopComputer);
 
         //setting up products and printing it
