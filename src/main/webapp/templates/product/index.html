@@ -3,20 +3,7 @@
 <head th:replace="head.html :: copy"></head>
 
 <body>
-
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
-
-<div class="d-flex justify-content-end">
-    <nav class="navbar navbar-light bg-light">
-        <form class="form-inline">
-            <button class="btn btn-outline-success" type="button">
-                <a href="/smartwatch">&#128722;</a>
-            </button>
-        </form>
-    </nav>
-</div>
+<div th:replace="navigation.html :: copy"></div>
 
 <div class="productsTitle">
     <strong>Products list</strong>
@@ -24,26 +11,7 @@
 <br>
 
 <div class="row">
-    <div class="col-sm-2">
-        <strong>Categories:</strong>
-        <div th:each="category : ${categories}">
-            <a th:href="@{?filter_by={category_name}(category_name = ${category.name.toLowerCase()})}">
-                <button type="button" class="btn btn-light btn-block" id="filterButton"
-                        th:text="${category.name}">
-                </button>
-            </a>
-        </div>
-        <br>
-        <strong>Suppliers:</strong>
-        <div th:each="supplier : ${suppliers}">
-
-            <a th:href="@{?filter_by={supplier_name}(supplier_name = ${supplier.name.toLowerCase()})}">
-                <button type="button" class="btn btn-light btn-block" id="filterButton"
-                        th:text="${supplier.name}">>
-                </button>
-            </a>
-        </div>
-    </div>
+    <div th:replace="filter.html :: copy"></div>
     <div class="col">
         <div class="container">
             <div id="products" class="row">

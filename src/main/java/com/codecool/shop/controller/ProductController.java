@@ -34,10 +34,10 @@ public class ProductController extends HttpServlet {
         String filter_by = req.getParameter("filter_by");
 
         if (filter_by != null) {
-            engineProductFilter(resp, productDataStore, productService, supplierStore, engine, context, filter_by);
+            engineProductFilter(resp, productDataStore, productService, productCategoryDataStore, supplierStore, engine, context, filter_by);
+        } else {
+            engineIndexHTML(resp, productDataStore, productCategoryDataStore, supplierStore, engine, context);
         }
-        engineIndexHTML(resp, productDataStore, productCategoryDataStore, supplierStore, engine, context);
-
         /*
           Alternative setting of the template context
           Map<String, Object> params = new HashMap<>();
@@ -47,21 +47,21 @@ public class ProductController extends HttpServlet {
          */
     }
 
-    private void engineProductFilter(HttpServletResponse resp, ProductDao productDataStore, ProductService productService, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
+    private void engineProductFilter(HttpServletResponse resp, ProductDao productDataStore, ProductService productService, ProductCategoryDao productCategoryDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
         switch (filter_by) {
             case "smartphone":
             case "tablet":
             case "smartwatch":
             case "laptop":
             case "desktop":
-                filterByCategories(resp, productService, engine, context, filter_by);
+                filterByCategories(resp, productService, productCategoryDataStore, supplierStore, engine, context, filter_by);
                 break;
             case "apple":
             case "amazon":
             case "lenovo":
             case "sony":
             case "dell":
-                filterBySuppliers(resp, productDataStore, supplierStore, engine, context, filter_by);
+                filterBySuppliers(resp, productDataStore, productCategoryDataStore, supplierStore, engine, context, filter_by);
                 break;
         }
     }
@@ -73,16 +73,20 @@ public class ProductController extends HttpServlet {
         engine.process("product/index.html", context, resp.getWriter());
     }
 
-    private void filterByCategories(HttpServletResponse resp, ProductService productService, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
+    private void filterByCategories(HttpServletResponse resp, ProductService productService, ProductCategoryDao productCategoryDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
         int categoryId = getCategorySupplierId(filter_by);
+        context.setVariable("categories", productCategoryDataStore.getAll());
+        context.setVariable("suppliers", supplierStore.getAll());
         context.setVariable("category", productService.getProductCategory(categoryId));
         context.setVariable("products", productService.getProductsForCategory(categoryId));
         engine.process("product/filter_products.html", context, resp.getWriter());
     }
 
-    private void filterBySuppliers(HttpServletResponse resp, ProductDao productDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
+    private void filterBySuppliers(HttpServletResponse resp, ProductDao productDataStore, ProductCategoryDao productCategoryDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
         int supplierId = getCategorySupplierId(filter_by);
         Supplier supplier = supplierStore.find(supplierId);
+        context.setVariable("categories", productCategoryDataStore.getAll());
+        context.setVariable("suppliers", supplierStore.getAll());
         context.setVariable("supplier", supplier);
         context.setVariable("products", productDataStore.getBy(supplier));
         engine.process("product/filter_products.html", context, resp.getWriter());

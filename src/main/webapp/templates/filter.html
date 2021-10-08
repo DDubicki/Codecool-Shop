@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="copy">
+    <div class="col-sm-2">
+        <strong>Categories:</strong>
+        <div th:each="cat : ${categories}">
+            <a  th:href="@{?filter_by={category_name}(category_name = ${cat.name.toLowerCase()})}">
+                <button type="button" class="btn btn-light btn-block" id="filterButton"
+                        th:text="${cat.name}">
+                </button>
+            </a>
+        </div>
+        <br>
+        <strong>Suppliers:</strong>
+        <div th:each="sup : ${suppliers}">
+            <a th:href="@{?filter_by={supplier_name}(supplier_name = ${sup.name.toLowerCase()})}">
+                <button type="button" class="btn btn-light btn-block" id="filterButton"
+                        th:text="${sup.name}">>
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
