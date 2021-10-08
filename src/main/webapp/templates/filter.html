@@ -3,7 +3,7 @@
 <body>
 
 <div th:fragment="copy">
-    <div class="col-sm-2">
+    <div class="container">
         <strong>Categories:</strong>
         <div th:each="cat : ${categories}">
             <a  th:href="@{?filter_by={category_name}(category_name = ${cat.name.toLowerCase()})}">
