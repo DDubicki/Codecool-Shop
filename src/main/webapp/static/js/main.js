@@ -25,15 +25,15 @@ function createNewOrder(event) {
 
 function addPointer() {
     let cart = document.querySelector('nav form  button  a');
-    if (cart.innerHTML === '🛒') {
-        cart.innerHTML = 1;
+    if (cart.innerText === '🛒') {
+        cart.innerText = '🛒 (1)';
     } else {
-        cart.innerHTML++;
+        let quantity = Number(cart.innerText.split(" ")[1].replace("(", "").replace(")", ""));
+        quantity++;
+        cart.innerHTML = '🛒' + " (" + quantity + ")";
     }
 }
 
 (function () {
     bindEventListeners();
-    // let route = "/top?page=1";
-    // fetchData(route);
 })();
