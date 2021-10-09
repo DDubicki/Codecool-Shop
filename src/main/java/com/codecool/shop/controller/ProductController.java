@@ -33,6 +33,8 @@ public class ProductController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         String filter_by = req.getParameter("filter_by");
 
+        String servletPath = req.getServletPath();
+        if (servletPath != "/"){ addProductToCart(servletPath); }
         if (filter_by != null) {
             engineProductFilter(resp, productDataStore, productService, productCategoryDataStore, supplierStore, engine, context, filter_by);
         } else {
@@ -45,6 +47,14 @@ public class ProductController extends HttpServlet {
                    params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
                    context.setVariables(params);
          */
+    }
+
+    private void addProductToCart(String servletPath) {
+        String[] apiReq = servletPath.split("/product ");
+        String[] params = apiReq[1].split(" ");
+        for (int i = 0; i < params.length; i++) {
+            System.out.println(params[i]);
+        }
     }
 
     private void engineProductFilter(HttpServletResponse resp, ProductDao productDataStore, ProductService productService, ProductCategoryDao productCategoryDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
