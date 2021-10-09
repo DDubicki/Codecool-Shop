@@ -8,6 +8,7 @@ import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Supplier;
+import com.codecool.shop.order.Order;
 import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -53,7 +54,7 @@ public class ProductController extends HttpServlet {
 
     private void addProductToCart(String servletPath) {
         int productId = Integer.parseInt(servletPath.split("/productId ")[1]);
-        System.out.println(productId);
+        Order.setData(productId);
     }
 
     private void engineProductFilter(HttpServletResponse resp, ProductDao productDataStore, ProductService productService, ProductCategoryDao productCategoryDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
