@@ -20,7 +20,7 @@ function bindEventListeners() {
 }
 
 function createNewOrder(event) {
-    fetchData("/api" + "/product " + event.target.parentElement.id);
+    fetchData("/api" + "/productId " + event.target.parentElement.id);
 }
 
 function addPointer() {

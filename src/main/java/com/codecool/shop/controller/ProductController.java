@@ -34,7 +34,9 @@ public class ProductController extends HttpServlet {
         String filter_by = req.getParameter("filter_by");
 
         String servletPath = req.getServletPath();
-        if (servletPath != "/"){ addProductToCart(servletPath); }
+        if (servletPath != "/") {
+            addProductToCart(servletPath);
+        }
         if (filter_by != null) {
             engineProductFilter(resp, productDataStore, productService, productCategoryDataStore, supplierStore, engine, context, filter_by);
         } else {
@@ -50,11 +52,8 @@ public class ProductController extends HttpServlet {
     }
 
     private void addProductToCart(String servletPath) {
-        String[] apiReq = servletPath.split("/product ");
-        String[] params = apiReq[1].split(" ");
-        for (int i = 0; i < params.length; i++) {
-            System.out.println(params[i]);
-        }
+        int productId = Integer.parseInt(servletPath.split("/productId ")[1]);
+        System.out.println(productId);
     }
 
     private void engineProductFilter(HttpServletResponse resp, ProductDao productDataStore, ProductService productService, ProductCategoryDao productCategoryDataStore, SupplierDao supplierStore, TemplateEngine engine, WebContext context, String filter_by) throws IOException {
