@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -44,10 +45,10 @@ public class ProductController extends HttpServlet {
             String direction = servletPath.split("/")[2];
             if (direction.equals("productId")){
                 addProductToCart(servletPath);
-            } else if (direction.equals("checkShopCart")) {
-                makeOrder(order, context, productDataStore, engine, resp);
             }
         }
+
+        makeOrder(order, context, productDataStore, engine, resp);
 
         if (filter_by != null) {
             engineProductFilter(resp, productDataStore, productService, productCategoryDataStore, supplierStore, engine, context, filter_by);
@@ -117,14 +118,19 @@ public class ProductController extends HttpServlet {
     private void makeOrder(Order order, WebContext context, ProductDao productDataStore, TemplateEngine engine, HttpServletResponse resp) throws IOException {
         HashMap<Integer, Integer> data = order.getData();
         LinkedList<Product> orderProducts = new LinkedList<>();
+        double totalPrice = 0;
+        Currency currency = null;
         for (int key : data.keySet()) {
             int quantity = data.get(key);
             Product product = productDataStore.find(key);
             product.setOrderQuantity(quantity);
+            totalPrice += product.getDefaultPrice().doubleValue() * quantity;
+            currency = product.getDefaultCurrency();
             orderProducts.add(product);
         }
+        context.setVariable("currency", currency);
+        context.setVariable("totalPrice", totalPrice);
         context.setVariable("orderProducts", orderProducts);
-//        engine.process("cart_modal.html", context, resp.getWriter());
     }
 
     private int getCategorySupplierId(String filter_by) {
