@@ -11,10 +11,19 @@
     <div class="d-flex justify-content-end">
         <nav class="navbar navbar-light bg-light">
             <form class="form-inline">
-                <button class="btn btn-outline-success" type="button" data-toggle="modal"
-                        data-target="#MymodalRemoveAnim">
-                    <a>&#128722;</a>
-                </button>
+                <div th:if="${orderCount == 0}">
+                    <button class="btn btn-outline-success" type="button" data-toggle="modal"
+                            data-target="#MymodalRemoveAnim">
+                        <a>&#128722;</a>
+                    </button>
+                </div>
+                <div th:if="${orderCount != 0}">
+                    <button class="btn btn-outline-success" type="button" data-toggle="modal"
+                            data-target="#MymodalRemoveAnim">
+                        <a>&#128722;</a>
+                        <a th:text="${'(' + orderCount + ')'}"></a>
+                    </button>
+                </div>
             </form>
         </nav>
     </div>

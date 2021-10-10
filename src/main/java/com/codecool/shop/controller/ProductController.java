@@ -120,6 +120,7 @@ public class ProductController extends HttpServlet {
         LinkedList<Product> orderProducts = new LinkedList<>();
         double totalPrice = 0;
         Currency currency = null;
+        int orderCount = 0;
         for (int key : data.keySet()) {
             int quantity = data.get(key);
             Product product = productDataStore.find(key);
@@ -127,7 +128,9 @@ public class ProductController extends HttpServlet {
             totalPrice += product.getDefaultPrice().doubleValue() * quantity;
             currency = product.getDefaultCurrency();
             orderProducts.add(product);
+            orderCount += quantity;
         }
+        context.setVariable("orderCount", orderCount);
         context.setVariable("currency", currency);
         context.setVariable("totalPrice", totalPrice);
         context.setVariable("orderProducts", orderProducts);

@@ -28,13 +28,24 @@ function createNewOrder(event) {
 }
 
 function addPointer() {
-    let cart = document.querySelector('nav form  button  a');
-    if (cart.innerText === '🛒') {
-        cart.innerText = '🛒 (1)';
+    let cart1 = document.querySelectorAll('nav form  button  a')[0];
+    let cart2 = document.querySelectorAll('nav form  button  a')[1];
+    if (cart2 === undefined) {
+        if (cart1.innerText === '🛒'){
+            cart1.innerText = '🛒 (1)';
+        } else {
+            let quantity = Number(cart1.innerText.split(" ")[1].replace("(", "").replace(")", ""));
+            quantity++;
+            cart1.innerHTML = '🛒' + " (" + quantity + ")";
+        }
     } else {
-        let quantity = Number(cart.innerText.split(" ")[1].replace("(", "").replace(")", ""));
+        let quantity = Number(cart2.innerText.replace("(", "").replace(")", ""));
+        if (isNaN(quantity)) {
+            quantity = Number(cart2.innerText.split(" ")[1].replace("(", "").replace(")", ""));
+        }
         quantity++;
-        cart.innerHTML = '🛒' + " (" + quantity + ")";
+        cart1.innerHTML = "";
+        cart2.innerHTML = '🛒' + " (" + quantity + ")";
     }
 }
 
