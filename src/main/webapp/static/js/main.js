@@ -15,12 +15,16 @@ function bindEventListeners() {
         button.addEventListener("click", addPointer);
         button.addEventListener("click", createNewOrder)
     });
-    // let cart = document.querySelector('nav form  button  a');
-    // cart.addEventListener("click", createNewOrder);
+    let cart = document.querySelector('nav form  button  a');
+    cart.addEventListener("click", checkShopCart);
+}
+
+function checkShopCart(){
+    fetchData("/api/checkShopCart")
 }
 
 function createNewOrder(event) {
-    fetchData("/api" + "/productId " + event.target.parentElement.id);
+    fetchData("/api/productId/" + event.target.parentElement.id);
 }
 
 function addPointer() {

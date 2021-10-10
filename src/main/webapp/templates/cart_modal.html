@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
 
 <div class="modal" id="MymodalRemoveAnim" th:fragment="copy">
@@ -14,7 +14,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                Modal without the animation effect.
+                <div class="container" th:each="product : ${orderProducts}">
+<!--                    <a th:text="${product.orderQuantity} x"></a>-->
+                    <a class="card-title" th:text="${product.name}">Product name</a>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">

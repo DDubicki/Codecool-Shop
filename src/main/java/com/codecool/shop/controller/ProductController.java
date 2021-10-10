@@ -7,6 +7,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.order.Order;
 import com.codecool.shop.service.ProductService;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
@@ -29,20 +32,29 @@ public class ProductController extends HttpServlet {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         ProductService productService = new ProductService(productDataStore, productCategoryDataStore);
         SupplierDao supplierStore = SupplierDaoMem.getInstance();
+        Order order = new Order();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         String filter_by = req.getParameter("filter_by");
 
         String servletPath = req.getServletPath();
-        if (servletPath != "/") {
-            addProductToCart(servletPath);
+
+        if (!servletPath.equals("/")) {
+            String direction = servletPath.split("/")[2];
+            if (direction.equals("productId")){
+                addProductToCart(servletPath);
+            } else if (direction.equals("checkShopCart")) {
+                makeOrder(order, context, productDataStore, engine, resp);
+            }
         }
+
         if (filter_by != null) {
             engineProductFilter(resp, productDataStore, productService, productCategoryDataStore, supplierStore, engine, context, filter_by);
         } else {
             engineIndexHTML(resp, productDataStore, productCategoryDataStore, supplierStore, engine, context);
         }
+
         /*
           Alternative setting of the template context
           Map<String, Object> params = new HashMap<>();
@@ -53,7 +65,7 @@ public class ProductController extends HttpServlet {
     }
 
     private void addProductToCart(String servletPath) {
-        int productId = Integer.parseInt(servletPath.split("/productId ")[1]);
+        int productId = Integer.parseInt(servletPath.split("/")[3]);
         Order.setData(productId);
     }
 
@@ -100,6 +112,19 @@ public class ProductController extends HttpServlet {
         context.setVariable("supplier", supplier);
         context.setVariable("products", productDataStore.getBy(supplier));
         engine.process("product/filter_products.html", context, resp.getWriter());
+    }
+
+    private void makeOrder(Order order, WebContext context, ProductDao productDataStore, TemplateEngine engine, HttpServletResponse resp) throws IOException {
+        HashMap<Integer, Integer> data = order.getData();
+        LinkedList<Product> orderProducts = new LinkedList<>();
+        for (int key : data.keySet()) {
+            int quantity = data.get(key);
+            Product product = productDataStore.find(key);
+            product.setOrderQuantity(quantity);
+            orderProducts.add(product);
+        }
+        context.setVariable("orderProducts", orderProducts);
+//        engine.process("cart_modal.html", context, resp.getWriter());
     }
 
     private int getCategorySupplierId(String filter_by) {
